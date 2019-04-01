@@ -2,28 +2,45 @@ import React, { Component } from 'react';
 
 import { Link, Center , Empid_name, DatePick } from "../../components";
 import { Frame, Words } from "@arwes/arwes";
+import moment from "moment";
 
 
-
+  
 
   class Splash extends Component {
     constructor(props) {
       super(props);
       this.state = { 
         data: null ,
-        dateVal: null
+        dateVal: moment().format('YYYY-MM-DD')
       };
   
      
     } 
-  componentWillMount(){
-    const url = "/attend_name_empid";
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => this.setState({
-        data: data,
-      }))
+    dynamic_name_empid = (date) =>{
+      const url = "/dynamic_name_empid";
+
+      fetch(url, {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      
+        //make sure to serialize your JSON body
+        body: JSON.stringify({
+          date: date
+        })
+      })
+        .then(response => response.json())
+        .then(data => this.setState({
+          data: data,
+        }))
+    }
+
+  componentWillMount(){
+   this.dynamic_name_empid(this.state.dateVal)
   }
 
   handleDateValChange = (DateVal) => {
@@ -31,15 +48,16 @@ import { Frame, Words } from "@arwes/arwes";
 }
 
   render() {
-
+    console.log(this.state)
     const {data} = this.state;
+    
     return (
     <Center>
       <h1 >
         Complete Employee List on 
       </h1>
 
-      <DatePick onDateSelect = {this.handleDateValChange}/>
+      <DatePick onDateSelect = {this.handleDateValChange} netWorkCall = {this.dynamic_name_empid}/>
         
 
      <div className="emp_id_name_container"
@@ -52,7 +70,7 @@ import { Frame, Words } from "@arwes/arwes";
 
         })    ) : (
           <h1 >
-            Table loading ...
+            No Data on This Date
         </h1>
       )}
      </div>

@@ -18,7 +18,10 @@ class DatePick extends React.Component {
   }
   handleDateChange = (date) => {
     this.setState({ date })
-    this.props.onDateSelect(date);            
+    this.props.onDateSelect(date.format("YYYY-MM-DD")); 
+     
+    this.props.netWorkCall(date.format("YYYY-MM-DD")); 
+          
 }
   render() {
     return (
@@ -26,12 +29,14 @@ class DatePick extends React.Component {
         <SingleDatePicker
            showDefaultInputIcon = {true}
           date={this.state.date} // momentPropTypes.momentObj or null
-          onDateChange={date => this.setState({ date })} 
+          onDateChange={this.handleDateChange} 
           focused={this.state.focused} // PropTypes.bool
           onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
           numberOfMonths={1}
           displayFormat="YYYY-MM-DD"
           readOnly
+          isOutsideRange={() => false}
+
         />
         {/* Selected date is {this.state.date.format("YYYY-MM-DD")} */}
         
