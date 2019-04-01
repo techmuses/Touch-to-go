@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Link, Center, Button } from "../../components";
+import { Link, Center , Empid_name, DatePick } from "../../components";
 import { Frame, Words } from "@arwes/arwes";
 
 
@@ -14,54 +14,40 @@ import { Frame, Words } from "@arwes/arwes";
       
     } 
   componentWillMount(){
-    const url = "/data";
+    const url = "/attend_name_empid";
 
     fetch(url)
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => this.setState({
+        data: data,
+      }))
   }
 
   render() {
-    return (
 
+    const {data} = this.state;
+    return (
     <Center>
       <h1 >
-        Complete Employee List
+        Complete Employee List on 
       </h1>
-        
 
-      <div className="emp_list"
-      style={{ padding: 20 , width: "100%"}}>
-        <Frame animate level={1} corners={3}>
-          
-          <div style={{ padding: '8px 8px', fontSize: '22px' }}>
-          <h1 style={{margin: "0 0 -1px"}}>
-            Employee no : 007
-          </h1>
+      <DatePick>
 
-            James Bond
-          
-          </div>
-        </Frame>
-        </div>
+        </DatePick>
 
-        <div className="emp_list"
-      style={{ padding: 20 , width: "100%"}}>
-        <Frame animate level={1} corners={3}>
-          
-          <div style={{ padding: '8px 8px', fontSize: '22px' }}>
-          <h1 style={{margin: "0 0 -1px"}}>
-            Employee no : 007
-          </h1>
+     <div className="emp_id_name_container"
+     style={{  padding: 20 , width: "100%"}}>
+     {data ? (
+        data.map((element, k) => {
+          return (<Empid_name emp_id={element["EMP_ID"]} emp_name={element["NAME"]} key={k}/>)
 
-            James Bond
-          
-          </div>
-        </Frame>
-        </div>
-      
-
-
+        })    ) : (
+          <h1 >
+            Table loading ...
+        </h1>
+      )}
+     </div>
 
     </Center>
   )

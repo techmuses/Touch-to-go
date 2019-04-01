@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
 // Initialize the app
 const app = express();
 
-app.get('/data', function (req, res) {
+app.get('/all_attend_tbl', function (req, res) {
 
     connection.query('SELECT * FROM ATTENDENCE', function (error, results, fields) {
       if (error) throw error;
@@ -20,6 +20,17 @@ app.get('/data', function (req, res) {
     });
 
 });
+
+app.get('/attend_name_empid', function (req, res) {
+
+  connection.query('SELECT ATTENDENCE.EMP_ID, EMP_DETAILS.NAME FROM EMP_DETAILS, ATTENDENCE WHERE EMP_DETAILS.EMP_ID = ATTENDENCE.EMP_ID',
+   function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+  });
+
+});
+
 // Start the server
 app.listen(3000, () => {
  console.log('Go to http://localhost:3000/data to see posts');
