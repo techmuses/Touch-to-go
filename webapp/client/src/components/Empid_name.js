@@ -3,7 +3,6 @@ import { Frame} from "@arwes/arwes";
 import AnimateContext from "../helpers/animateContext";
 
 export default ({ ...props}) => {
-  console.log(props)
   return (
     
     <div className="emp_list"

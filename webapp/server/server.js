@@ -23,7 +23,7 @@ app.get('/all_attend_tbl', function (req, res) {
 
 app.get('/attend_name_empid', function (req, res) {
 
-  connection.query('SELECT ATTENDENCE.EMP_ID, EMP_DETAILS.NAME FROM EMP_DETAILS, ATTENDENCE WHERE EMP_DETAILS.EMP_ID = ATTENDENCE.EMP_ID',
+  connection.query('SELECT DISTINCT ATTENDENCE.EMP_ID, EMP_DETAILS.NAME FROM EMP_DETAILS, ATTENDENCE WHERE EMP_DETAILS.EMP_ID = ATTENDENCE.EMP_ID',
    function (error, results, fields) {
     if (error) throw error;
     res.send(results)

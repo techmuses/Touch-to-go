@@ -9,9 +9,12 @@ import { Frame, Words } from "@arwes/arwes";
   class Splash extends Component {
     constructor(props) {
       super(props);
-      this.state = { data: null };
+      this.state = { 
+        data: null ,
+        dateVal: null
+      };
   
-      
+     
     } 
   componentWillMount(){
     const url = "/attend_name_empid";
@@ -23,6 +26,10 @@ import { Frame, Words } from "@arwes/arwes";
       }))
   }
 
+  handleDateValChange = (DateVal) => {
+    this.setState({dateVal: DateVal});
+}
+
   render() {
 
     const {data} = this.state;
@@ -32,15 +39,16 @@ import { Frame, Words } from "@arwes/arwes";
         Complete Employee List on 
       </h1>
 
-      <DatePick>
-
-        </DatePick>
+      <DatePick onDateSelect = {this.handleDateValChange}/>
+        
 
      <div className="emp_id_name_container"
      style={{  padding: 20 , width: "100%"}}>
      {data ? (
         data.map((element, k) => {
-          return (<Empid_name emp_id={element["EMP_ID"]} emp_name={element["NAME"]} key={k}/>)
+          return (<Link to={`detail/${element["EMP_ID"]}`} key={k}>
+            <Empid_name emp_id={element["EMP_ID"]} emp_name={element["NAME"]} key={k}/>
+          </Link>)
 
         })    ) : (
           <h1 >
