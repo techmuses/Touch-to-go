@@ -48,7 +48,7 @@ import moment from "moment";
 }
 
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     const {data} = this.state;
     
     return (
