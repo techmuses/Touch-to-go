@@ -4,7 +4,9 @@ import { Frame, Words, Image } from "@arwes/arwes";
 
 export default ({ ...props}) => {
 
-
+  const error_prop = {
+    error: 'NO IMAGE',
+  };
   return (
     
   
@@ -39,12 +41,12 @@ export default ({ ...props}) => {
      
 
           <div style={{ padding: "10px 20px 0px 0px", maxWidth: "200px" }}>
-          <Image animate resources={props.IN_PIC}> IN_PIC</Image>
+          <Image animate resources={props.IN_PIC} i18n={error_prop}> IN_PIC</Image>
 
         </div>
 
         <div style={{ padding: "10px 20px 0px 0px", maxWidth: "200px" }}>
-          <Image animate resources={props.OUT_PIC}> OUT_PIC</Image> 
+          <Image animate resources={props.OUT_PIC} i18n={error_prop}> OUT_PIC</Image> 
             
 
         </div>

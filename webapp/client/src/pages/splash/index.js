@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Link, Center , Empid_name, DatePick } from "../../components";
+import { Link, Center , Empid_name, DatePick , Button} from "../../components";
 import { Frame, Words } from "@arwes/arwes";
 import moment from "moment";
 
@@ -48,11 +48,17 @@ import moment from "moment";
 }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     const {data} = this.state;
     
     return (
     <Center>
+
+         <Link to="/register">
+          <Button>Register Employee</Button>
+        </Link>
+
+        <br/>
       <h1 >
         Complete Employee List on 
       </h1>
@@ -74,6 +80,10 @@ import moment from "moment";
             No Data on This Date
         </h1>
       )}
+
+      {data && data["length"] ? null : <Center> <h1 > All Absent on this day </h1> </Center>
+        //data && this.state.data.length() && <h1 > Complete Employee List on </h1>
+      }
      </div>
 
     </Center>

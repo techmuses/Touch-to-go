@@ -37,6 +37,8 @@ class DatePick extends React.Component {
           readOnly
           isOutsideRange={() => false}
 
+          // renderDayContents={(day) => (day.day() % 6 === 5 ? '😻' : day.format('D'))}
+          
         />
         {/* Selected date is {this.state.date.format("YYYY-MM-DD")} */}
         

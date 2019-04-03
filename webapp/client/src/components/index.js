@@ -12,3 +12,5 @@ export { default as Emp_detail_comp } from "./Emp_detail_comp";
 
 export {default as DatePick} from "./DatePick"
 
+export {default as SnackComp} from "./SnackComp"
+

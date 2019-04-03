@@ -70,6 +70,22 @@ app.post('/attnd_tbl_frm_empid', function (req, res) {
 });
 
 
+app.post('/insert_emp_id_name', function (req, res) {
+  const emp_id = req.body.emp_id;
+  const name = req.body.name;
+
+  connection.query(`INSERT INTO EMP_DETAILS VALUES ("${emp_id}","${name}")`,
+   function (error, results, fields) {
+    if (error) throw error;
+    // console.log(results)
+    // res.send(results)
+    console.log("1 record inserted");
+    console.log(results)
+
+  });
+
+});
+
 
 // Start the server
 app.listen(3000, () => {

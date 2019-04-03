@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "../components/Link";
+import {Link, Button} from "../components";
 import { Header } from "@arwes/arwes";
 import Logo from "../assets/img/logo.png";
 import AnimateContext from "../helpers/animateContext";
@@ -14,6 +14,9 @@ const TopHeader = () => (
           marginBottom: "1.45rem"
         }}
       >
+        
+        <div>
+
         <div
           style={{
             margin: "0 auto",
@@ -22,7 +25,7 @@ const TopHeader = () => (
             display: "flex",
             justifyContent: "space-between"
           }}
-        >
+          >
           <Link
             to="/"
             style={{
@@ -41,6 +44,8 @@ const TopHeader = () => (
           <h3>
           Team ID: 007
           </h3>
+
+        </div>
 
         </div>
       </Header>
