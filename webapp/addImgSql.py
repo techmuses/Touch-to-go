@@ -8,6 +8,34 @@ import base64
 import cStringIO
 import PIL.Image
 
+import cloudinary
+import cloudinary.uploader
+
+import glob #to get latest added file 
+
+BaseDirectory = '/home/pi/Desktop/azure-faceApi/captured/' # directory where picamera photos are stored
+
+
+cloudinary.config( 
+  cloud_name = "dvey2m05b", 
+  api_key = "163722355749348", 
+  api_secret = "WYAlWAKzQm75iFEEf5AerCosV1c" 
+)
+
+def cloudinaryUpload(imgPath):
+        resp =  cloudinary.uploader.upload(imgPath)
+        url = resp["secure_url"]
+        print(url)
+        return url
+
+
+def latestFile():
+        list_of_files = glob.glob(BaseDirectory + '*') # * means all if need specific format then *.csv
+        latest_file = max(list_of_files, key=os.path.getctime)
+        print (latest_file)
+        return latest_file
+
+
 connection = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -22,37 +50,38 @@ def convertToBinaryData(filename):
     #Convert digital data to binary format
     with open(filename, 'rb') as imageFile:
         binaryData = imageFile.read()
-    return binaryData
+        encoded_string = base64.b64encode(binaryData)
+    return encoded_string
 
-def insertBLOB(emp_id, name, photo, biodataFile):
-    print("Inserting BLOB into python_employee table")
+# def insertBLOB(emp_id, name, photo, biodataFile):
+#     print("Inserting BLOB into python_employee table")
 
-    try:
+#     try:
         
 
-        sql_insert_blob_query = """ INSERT INTO `python_employee`
-                          (`id`, `name`, `photo`, `biodata`) VALUES (%s,%s,%s,%s)"""
+#         sql_insert_blob_query = """ INSERT INTO `python_employee`
+#                           (`id`, `name`, `photo`, `biodata`) VALUES (%s,%s,%s,%s)"""
 
-        empPicture = convertToBinaryData(photo)
-        file = convertToBinaryData(biodataFile)
+#         empPicture = convertToBinaryData(photo)
+#         file = convertToBinaryData(biodataFile)
 
-        # Convert data into tuple format
-        insert_blob_tuple = (emp_id, name, empPicture, file)
+#         # Convert data into tuple format
+#         insert_blob_tuple = (emp_id, name, empPicture, file)
 
-        result  = cursor.execute(sql_insert_blob_query, insert_blob_tuple)
-        connection.commit()
-        print ("Image and file inserted successfully as a BLOB into python_employee table", result)
+#         result  = cursor.execute(sql_insert_blob_query, insert_blob_tuple)
+#         connection.commit()
+#         print ("Image and file inserted successfully as a BLOB into python_employee table", result)
 
-    except mysql.connector.Error as error :
-        connection.rollback()
-        print("Failed inserting BLOB data into MySQL table {}".format(error))
+#     except mysql.connector.Error as error :
+#         connection.rollback()
+#         print("Failed inserting BLOB data into MySQL table {}".format(error))
 
-    finally:
-        #closing database connection.
-        if(connection.is_connected()):
-            cursor.close()
-            connection.close()
-            print("MySQL connection is closed")
+#     finally:
+#         #closing database connection.
+#         if(connection.is_connected()):
+#             cursor.close()
+#             connection.close()
+#             print("MySQL connection is closed")
 
 # insertBLOB(1, "Eric", "D:\Python\Articles\my_SQL\images\eric_photo.png", "D:\Python\Articles\my_SQL\images\eric_bioData.txt")
 # insertBLOB(2, "Scott", "D:\Python\Articles\my_SQL\images\scott_photo.png","D:\Python\Articles\my_SQL\images\scott_bioData.txt")
