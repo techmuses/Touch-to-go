@@ -40,11 +40,36 @@ app.post('/dynamic_name_empid', function (req, res) {
   connection.query(`SELECT DISTINCT ATTENDENCE.EMP_ID, EMP_DETAILS.NAME FROM EMP_DETAILS, ATTENDENCE WHERE EMP_DETAILS.EMP_ID = ATTENDENCE.EMP_ID AND DATE="${date}"`,
    function (error, results, fields) {
     if (error) throw error;
-    console.log(results)
+    // console.log(results)
     res.send(results)
   });
 
 });
+
+
+app.post('/get_name_server', function (req, res) {
+  const emp_id = req.body.emp_id;
+  connection.query(`SELECT NAME FROM EMP_DETAILS WHERE EMP_ID="${emp_id}"`,
+   function (error, results, fields) {
+    if (error) throw error;
+    // console.log(results)
+    res.send(results)
+  });
+
+});
+
+app.post('/attnd_tbl_frm_empid', function (req, res) {
+  const emp_id = req.body.emp_id;
+  connection.query(`SELECT * FROM ATTENDENCE WHERE EMP_ID="${emp_id}"`,
+   function (error, results, fields) {
+    if (error) throw error;
+    // console.log(results)
+    res.send(results)
+  });
+
+});
+
+
 
 // Start the server
 app.listen(3000, () => {

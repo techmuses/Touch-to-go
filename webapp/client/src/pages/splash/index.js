@@ -48,7 +48,7 @@ import moment from "moment";
 }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     const {data} = this.state;
     
     return (
@@ -64,7 +64,8 @@ import moment from "moment";
      style={{  padding: 20 , width: "100%"}}>
      {data ? (
         data.map((element, k) => {
-          return (<Link to={`detail/${element["EMP_ID"]}`} key={k}>
+          return (
+          <Link to={`detail/${element["EMP_ID"]}/${element["NAME"]}`} key={k}>
             <Empid_name emp_id={element["EMP_ID"]} emp_name={element["NAME"]} key={k}/>
           </Link>)
 

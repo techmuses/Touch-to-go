@@ -13,6 +13,27 @@ import { Frame, Words, Image } from "@arwes/arwes";
   
       
     } 
+
+    attnd_tbl_frm_empid = (emp_id) =>{
+      const url = "/attnd_tbl_frm_empid";
+
+      fetch(url, {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      
+        //make sure to serialize your JSON body
+        body: JSON.stringify({
+          emp_id: emp_id
+        })
+      })
+        .then(response => response.json())
+        .then(data => this.setState({
+          data: data
+        }))
+    } 
   componentWillMount(){
     
     // const url = "/attend_name_empid";
@@ -22,15 +43,17 @@ import { Frame, Words, Image } from "@arwes/arwes";
     //   .then(data => this.setState({
     //     data: data,
     //   }))
+
+   this.attnd_tbl_frm_empid(this.props.empid)
   }
 
   render() {
-    const {data} = this.state;
+    console.log(this.state)
     return (
     <Center>
       
       <h1 >
-        Details of  Employee Id : {this.props.empid} James Bond
+        Details of  Employee Id : {this.props.empid} {this.props.name}
       </h1>
 
       <div className="emp_list"

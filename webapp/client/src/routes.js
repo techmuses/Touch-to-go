@@ -10,7 +10,7 @@ const Routes = () => {
   return (
     <Router>
       <Splash path="/" />
-      <EmpDetail path="detail/:empid"/>
+      <EmpDetail path="detail/:empid/:name"/>
 
       <NotFound default />
     </Router>
