@@ -2,12 +2,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql      = require('mysql');
 // https://github.com/mysqljs/mysql
+// const connection = mysql.createConnection({
+//   host     : '127.0.0.1',
+//   user     : 'root',
+//   password : 'root',
+//   database : 'COMPANY'
+// });
+
 const connection = mysql.createConnection({
-  host     : '127.0.0.1',
+  host     : '192.168.43.190',
   user     : 'root',
-  password : 'root',
+  password : 'password',
   database : 'COMPANY'
 });
+
 
 // Initialize the app
 const app = express();
@@ -85,6 +93,11 @@ app.post('/insert_emp_id_name', function (req, res) {
   });
 
 });
+
+// connection.query('SELECT * FROM ATTENDENCE', function (error, results, fields) {
+//   if (error) throw error;
+//   console.log(results)
+// });
 
 
 // Start the server
