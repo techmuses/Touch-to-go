@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="{{ url_for('static',    filename='video.mp4') }}"> -->
 	<link href="./assets/css/uikit.css" rel="stylesheet" media="all">
 	<link href="./assets/css/styles.css" rel="stylesheet" media="all">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 	<style>
 	.fingerprint {
     fill: transparent;
@@ -43,16 +44,67 @@
       stroke-dashoffset: 0;
     }
   }
+
+/* html, body {
+  height: 100%;
+  width: 100%;
+} */
+
+.clock {
+  height: 200px;
+  color: white;
+  font-size: 100px;
+  font-family: 'Roboto Mono';
+  line-height: 200px;
+  display: flex;
+  position: fixed;
+  /*background: green;*/
+  overflow: hidden;
+}
+
+/* .clock::before, .clock::after { */
+  /* content: '';
+  width: 7ch;
+  height: 3vh; */
+  /* position: fixed; */
+  /* z-index: 2; */
+/* } */
+
+/* .clock::after {
+  bottom: 0;
+} */
+
+.clock > div {
+  display: flex;
+}
+
+/* .tick {
+  line-height: 17vh;
+}
+
+.tick-hidden {
+  opacity: 0;
+} */
+/* 
+.move {
+  animation: move linear 1s infinite;
+} */
+/* 
+@keyframes move {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(-0vh);
+  }
+} */
+
+
 	</style>
+	
 </head>
 <body data-ng-app="myPage" data-ng-controller="myPageCtrl" data-gr-c-s-loaded="true" class="ng-scope" cz-shortcut-listen="true">
-
-
-
-	<div class="wrapper">
-	
-	
-	
+		
 	<section class="uk-height-viewport uk-cover-background uk-position-relative uk-flex uk-flex-middle uk-overflow-hidden grey_overlay container">
 	
 		<div class="video_wrapper">
@@ -60,7 +112,36 @@
 				<source src="./assets/video.mp4" type="video/mp4">
 			</video>
 		</div>
-	
+		<section style="z-index: 3;">
+				<div class="clock">
+						<div class="hours">
+							<div class="first">
+								<div class="number">0</div>
+							</div>
+							<div class="second">
+								<div class="number">0</div>
+							</div>
+						</div>
+						<div class="tick">:</div>
+						<div class="minutes">
+							<div class="first">
+								<div class="number">0</div>
+							</div>
+							<div class="second">
+								<div class="number">0</div>
+							</div>
+						</div>
+						<div class="tick">:</div>
+						<div class="seconds">
+							<div class="first">
+								<div class="number">0</div>
+							</div>
+							<div class="second infinite">
+								<div class="number">0</div>
+							</div>
+						</div>
+					</div>
+		</section>
 		<div class="uk-container uk-container-center uk-width-1-1 uk-text-center uk-position-relative container_block">
 	
 			<div class="container_block">
@@ -70,7 +151,7 @@
 			</div>
 	
 		</div>
-		<data-ng-click  class="uk-icon-angle-down container_arrow">
+		<data-ng-click  class="uk-icon-angle-down container_arrow" style="z-index: 3">
 			<div>
 				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 463 463" style="enable-background:new 0 0 463 463;" xml:space="preserve" class="fingerprint" width="100%" height="125px">
 				<title>FingerPrint | TalentRH</title>
@@ -154,7 +235,7 @@
 			  </g>
 			  <g>
 			  </g>
-			  <g>
+			  <g>element.
 			  </g>
 			  <g>
 			  </g>
@@ -174,43 +255,6 @@
 			</div>
 		</div>
 	</section>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	</div>
 	
 	<div id="mobile_nav" class="uk-offcanvas">
@@ -319,6 +363,81 @@
 		else {
 			console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
 		}
+		var hoursContainer = document.querySelector('.hours')
+		var minutesContainer = document.querySelector('.minutes')
+		var secondsContainer = document.querySelector('.seconds')
+		var tickElements = Array.from(document.querySelectorAll('.tick'))
+		
+		var last = new Date(0)
+		last.setUTCHours(-1)
+		
+		var tickState = true
+		
+		function updateTime () {
+			var now = new Date
+			
+			var lastHours = last.getHours().toString()
+			var nowHours = now.getHours().toString()
+			if (lastHours !== nowHours) {
+				updateContainer(hoursContainer, nowHours)
+			}
+			
+			var lastMinutes = last.getMinutes().toString()
+			var nowMinutes = now.getMinutes().toString()
+			if (lastMinutes !== nowMinutes) {
+				updateContainer(minutesContainer, nowMinutes)
+			}
+			
+			var lastSeconds = last.getSeconds().toString()
+			var nowSeconds = now.getSeconds().toString()
+			if (lastSeconds !== nowSeconds) {
+				//tick()
+				updateContainer(secondsContainer, nowSeconds)
+			}
+			
+			last = now
+		}
+		
+		function tick () {
+			tickElements.forEach(t => t.classList.toggle('tick-hidden'))
+		}
+		
+		function updateContainer (container, newTime) {
+			var time = newTime.split('')
+			
+			if (time.length === 1) {
+				time.unshift('0')
+			}
+			
+			
+			var first = container.firstElementChild
+			if (first.lastElementChild.textContent !== time[0]) {
+				updateNumber(first, time[0])
+			}
+			
+			var last = container.lastElementChild
+			if (last.lastElementChild.textContent !== time[1]) {
+				updateNumber(last, time[1])
+			}
+		}
+		
+		function updateNumber (element, number) {
+			//element.lastElementChild.textContent = number
+			var second = element.lastElementChild.cloneNode(true)
+			second.textContent = number
+			
+			element.appendChild(second)
+			element.classList.add('move')
+		
+			setTimeout(function () {
+				element.classList.remove('move')
+			}, 990)
+			setTimeout(function () {
+				element.removeChild(element.firstElementChild)
+			}, 990)
+		}
+		
+		setInterval(updateTime, 100)
 		// ]]>
 	</script>
 	
