@@ -378,7 +378,8 @@ p {
 	bottom: 50px;
 	width: 250px;
 	height: 250px;
-	margin: auto;
+	/* margin: auto; */
+	margin: -50px auto;
 	line-height: 35px;
 	text-align: center;
 	

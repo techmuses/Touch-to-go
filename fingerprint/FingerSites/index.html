@@ -59,7 +59,8 @@
   display: flex;
   position: fixed;
   /*background: green;*/
-  overflow: hidden;
+	overflow: hidden;
+	margin-left: 333px;
 }
 
 /* .clock::before, .clock::after { */
@@ -112,42 +113,48 @@
 				<source src="./assets/video.mp4" type="video/mp4">
 			</video>
 		</div>
-		<section style="z-index: 3;">
-				<div class="clock">
-						<div class="hours">
-							<div class="first">
-								<div class="number">0</div>
-							</div>
-							<div class="second">
-								<div class="number">0</div>
-							</div>
-						</div>
-						<div class="tick">:</div>
-						<div class="minutes">
-							<div class="first">
-								<div class="number">0</div>
-							</div>
-							<div class="second">
-								<div class="number">0</div>
-							</div>
-						</div>
-						<div class="tick">:</div>
-						<div class="seconds">
-							<div class="first">
-								<div class="number">0</div>
-							</div>
-							<div class="second infinite">
-								<div class="number">0</div>
-							</div>
-						</div>
-					</div>
-		</section>
+
 		<div class="uk-container uk-container-center uk-width-1-1 uk-text-center uk-position-relative container_block">
 	
 			<div class="container_block">
 				<h1 class="uk-h1 container_title">Welcome To</h1>
 				<h2 class="uk-h2 container_subtitle">Gujrat Industrial Hackathon</h2>
-				<div class="container_description">Scan Finger to Continue</div>				
+				<div class="container_description">Scan Finger to Continue</div>	
+				
+				
+			</div>
+
+			<div class="container_block">
+					<div class="uk-h1 container_title" style="z-index: 3;">
+							<div class="clock">
+									<div class="hours">
+										<div class="first">
+											<div class="number">0</div>
+										</div>
+										<div class="second">
+											<div class="number">0</div>
+										</div>
+									</div>
+									<div class="tick">:</div>
+									<div class="minutes">
+										<div class="first">
+											<div class="number">0</div>
+										</div>
+										<div class="second">
+											<div class="number">0</div>
+										</div>
+									</div>
+									<div class="tick">:</div>
+									<div class="seconds">
+										<div class="first">
+											<div class="number">0</div>
+										</div>
+										<div class="second infinite">
+											<div class="number">0</div>
+										</div>
+									</div>
+								</div>
+							</div>
 			</div>
 	
 		</div>
