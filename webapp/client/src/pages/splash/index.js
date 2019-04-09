@@ -39,13 +39,29 @@ import moment from "moment";
         }))
     }
 
+
+    handleClick(e) {
+      e.preventDefault()
+      console.log("in csv");
+
+      const url = "/getCsv";
+
+      fetch(url)
+        .then(response => response.json())
+        // .then(data => this.setState({
+        //   data: data,
+        // }))
+    }
+
   componentWillMount(){
-   this.dynamic_name_empid(this.state.dateVal)
+  //  this.dynamic_name_empid(this.state.dateVal)
   }
 
   handleDateValChange = (DateVal) => {
     this.setState({dateVal: DateVal});
 }
+
+
 
   render() {
     // console.log(this.state)
@@ -58,7 +74,15 @@ import moment from "moment";
           <Button>Register Employee</Button>
         </Link>
 
+      <br/>
+        <Link to="/allemp">
+          <Button>All Employees</Button>
+        </Link>
+
         <br/>
+
+        {/* <Button onClick={e => this.handleClick(e)}>Get CSV</Button>
+        <br/> */}
       <h1 >
         Complete Employee List on 
       </h1>
@@ -77,7 +101,7 @@ import moment from "moment";
 
         })    ) : (
           <h1 >
-            No Data on This Date
+           .
         </h1>
       )}
 

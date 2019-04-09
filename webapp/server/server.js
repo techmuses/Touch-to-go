@@ -1,11 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql      = require('mysql');
-// https://github.com/mysqljs/mysql
+
+var exec = require('child_process').exec;
+
+
 // const connection = mysql.createConnection({
 //   host     : '127.0.0.1',
 //   user     : 'root',
 //   password : 'root',
+//   database : 'COMPANY'
+// });
+
+// const connection = mysql.createConnection({
+//   host     : '192.168.43.71',
+//   user     : 'root',
+//   password : 'password',
 //   database : 'COMPANY'
 // });
 
@@ -15,6 +25,10 @@ const connection = mysql.createConnection({
   password : 'password',
   database : 'COMPANY'
 });
+
+
+
+var fs = require('fs');
 
 
 // Initialize the app
@@ -88,7 +102,7 @@ app.post('/insert_emp_id_name', function (req, res) {
     // console.log(results)
     // res.send(results)
     console.log("1 record inserted");
-    console.log(results)
+    // console.log(results)
 
   });
 
@@ -99,8 +113,60 @@ app.post('/insert_emp_id_name', function (req, res) {
 //   console.log(results)
 // });
 
+// app.get('/getCsv', function (req, res) {
+
+  // connection.query('SELECT * FROM ATTENDENCE INTO OUTFILE "~/Desktop/addstock7.csv" FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n',
+  //  function (error, results, fields) {
+  //   if (error) throw error;
+  //   res.send(results)
+  // });
+//   var child;
+
+// child = exec(command,
+//    function (error, stdout, stderr) {
+//       console.log('stdout: ' + stdout);
+//       console.log('stderr: ' + stderr);
+//       if (error !== null) {
+//           console.log('exec error: ' + error);
+//       }
+//    });
+//   let filename;
+
+//   mysql -u root -p "" COMPANY -B -e "select * from \'ATTENDENCE\';" | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > filename.csv
+
+//   var csv = filename // Not including for example.
+
+//   res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
+//   res.set('Content-Type', 'text/csv');
+//   res.status(200).send(csv);
+
+// });
+
+
+app.get('/get_reg_emps', function (req, res) {
+
+  connection.query('SELECT * FROM EMP_DETAILS ORDER BY EMP_ID ASC', function (error, results, fields) {
+    if (error) throw error;
+    res.send(results)
+  });
+
+});
+
+
+
+app.post('/star_employ', function (req, res) {
+  const emp_id = req.body.emp_id;
+  connection.query(`SELECT * FROM ATTENDENCE WHERE EMP_ID="${emp_id}"`,
+   function (error, results, fields) {
+    if (error) throw error;
+    // console.log(results)
+    res.send(results)
+  });
+
+});
+
 
 // Start the server
-app.listen(3000, () => {
- console.log('Go to http://localhost:3000/data to see posts');
+app.listen(3008, () => {
+ console.log('Go to http://localhost:3008/data to see posts');
 });

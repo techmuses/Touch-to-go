@@ -17,7 +17,8 @@
     "react-scripts": "2.0.3",
     "reactstrap": "6.5.0"
   },
-  "proxy": "http://localhost:3000/",
+  "proxy": "http://localhost:3008/",
+  
   "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",

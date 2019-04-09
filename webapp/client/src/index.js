@@ -6,6 +6,9 @@ import "./variables.scss";
 import "./bootstrap.scss";
 import "./styles.css";
 
+// import * as serviceWorker from './serviceWorker';
+
+
 class App extends Component {
   render() {
     return (
@@ -18,3 +21,5 @@ class App extends Component {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+// serviceWorker.unregister();

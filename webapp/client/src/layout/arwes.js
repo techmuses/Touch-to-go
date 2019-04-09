@@ -100,7 +100,7 @@ class ArwesContainer extends Component {
                   {children}
                 </div>
               </Content>
-              <Footer>Copyright © 2019 || Techmuses</Footer>
+              <Footer>Copyright © 2019 || TG001631</Footer>
             </div>
           </Arwes>
         </>

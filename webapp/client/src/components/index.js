@@ -14,3 +14,8 @@ export {default as DatePick} from "./DatePick"
 
 export {default as SnackComp} from "./SnackComp"
 
+export { default as AllEmpComponent } from "./AllEmpComponent";
+
+export { default as Per_all_emp } from "./Per_all_emp";
+
+
